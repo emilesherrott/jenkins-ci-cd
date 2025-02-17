@@ -14,7 +14,7 @@ pipeline {
 	stages {
 		stage('Checkout') {
 			steps {
-				echo "env.DOCKER_CERT_PATH"
+				echo "$env.DOCKER_CERT_PATH"
 				// sh 'mvn --version'
 				// sh 'docker --version'
 				// echo 'Build'
