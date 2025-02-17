@@ -14,58 +14,16 @@ pipeline {
 	stages {
 		stage('Checkout') {
 			steps {
-				sh 'mvn --version'
-				sh 'docker --version'
-				echo 'Build'
-				echo "Path: $PATH"
-				echo "Buld Number: $env.BUILD_NUMBER"
-				echo "Build ID: $env.BUILD_ID"
-				echo "Build Tag: $env.BUILD_TAG"
-				echo "Build URL: $env.BUILD_URL"
-				echo "Job Name: $env.JOB_NAME"
-			}
-			post {
-				always {
-					echo 'I run at the end of the build stage'
-				}
-			}
-		}
-		stage('Compile') {
-			steps {
-				sh "mvn clean compile"
-			}
-		}
-		stage('Test') {
-			steps {
-				sh "mvn test"
-			}
-		}
-		stage('Integration Test') {
-			steps {
-				echo 'Integration Test'
-			}
-		}
-		stage('Package') {
-			steps {
-				sh "mvn package -DskipTests"
-			}
-		}
-		stage('Build Docker Image'){
-			steps {
-				// docker build -t emilesherrott/currency-exchange-devops:$env.BUILD_TAG
-				script {
-					dockerImage = docker.build("emilesherrott/currency-exchange-devops:${env.BUILD_TAG}")
-				}
-			}
-		}
-		stage('Push Docker Image'){
-			steps {
-				script {
-					docker.withRegistry('', 'dockerhub') {
-						dockerImage.push()
-						dockerImage.push('latest')
-					}
-				}
+				echo "env.DOCKER_CERT_PATH"
+				// sh 'mvn --version'
+				// sh 'docker --version'
+				// echo 'Build'
+				// echo "Path: $PATH"
+				// echo "Buld Number: $env.BUILD_NUMBER"
+				// echo "Build ID: $env.BUILD_ID"
+				// echo "Build Tag: $env.BUILD_TAG"
+				// echo "Build URL: $env.BUILD_URL"
+				// echo "Job Name: $env.JOB_NAME"
 			}
 		}
 	}
